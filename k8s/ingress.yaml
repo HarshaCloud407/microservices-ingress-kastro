@@ -1,41 +1,27 @@
-apiVersion: networking.k8s.io/v1 
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-name: techsolutions-ingress
-namespace: default
-annotations:
-nginx.ingress.kubernetes.io/rewrite-target: /$1
-nginx.ingress.kubernetes.io/use-regex: "true"
-nginx.ingress.kubernetes.io/ssl-redirect: "false"
-cert-manager.io/cluster-issuer: "letsencrypt-prod"
+  name: techsolutions-ingress
+  namespace: default
+  annotations:
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
 spec:
-ingressClassName: nginx
+  ingressClassName: nginx
+  rules:
+    - http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: techsolutions-service
+                port:
+                  number: 80
+:::
 
-tls:
-- hosts:
-- techsolutions.yourdomain.com
-secretName: techsolutions-tls
+**Important:** Do NOT copy the `:::writing` lines into your file. Copy only the YAML content.
 
-rules:
-- host: techsolutions.yourdomain.com
-http:
-paths:
-- path: /(.*)
-pathType: ImplementationSpecific
-backend:
-service:
-name: techsolutions-service
-port:
+Your actual file should end at:
+
+```text
 number: 80
-
-```
-- http:
-    paths:
-      - path: /(.*)
-        pathType: ImplementationSpecific
-        backend:
-          service:
-            name: techsolutions-service
-            port:
-              number: 80
-```
