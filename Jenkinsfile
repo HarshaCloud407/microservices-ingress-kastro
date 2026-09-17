@@ -2,9 +2,9 @@ pipeline {
     agent any
 
     environment {
-        DOCKER_HUB_REPO = 'kastrov/techsolutions-app'
-        K8S_CLUSTER_NAME = 'kastro-cluster'
-        AWS_REGION = 'us-east-1'
+        DOCKER_HUB_REPO = 'hariprasad123456/techsolutions-app'
+        K8S_CLUSTER_NAME = 'blujay-cluster'
+        AWS_REGION = 'eu-north-1'
         NAMESPACE = 'default'
         APP_NAME = 'techsolutions'
     }
@@ -13,7 +13,7 @@ pipeline {
         stage('Checkout') {
             steps {
                 echo 'Checking out source code...'
-                git 'https://github.com/KastroVKiran/microservices-ingress.git'
+                git 'https://github.com/HarshaCloud407/microservices-ingress-kastro.git'
             }
         }
 
@@ -37,7 +37,7 @@ pipeline {
             steps {
                 echo 'Pushing Docker image to DockerHub...'
                 script {
-                    withCredentials([usernamePassword(credentialsId: 'dockerhub-creds', passwordVariable: 'DOCKER_PASSWORD', usernameVariable: 'DOCKER_USERNAME')]) {
+                    withCredentials([usernamePassword(credentialsId: 'dockerhub-credentails', passwordVariable: 'DOCKER_PASSWORD', usernameVariable: 'DOCKER_USERNAME')]) {
                         sh "echo \${DOCKER_PASSWORD} | docker login -u \${DOCKER_USERNAME} --password-stdin"
                         sh "docker push ${DOCKER_HUB_REPO}:${env.IMAGE_TAG}"
                         sh "docker push ${DOCKER_HUB_REPO}:latest"
