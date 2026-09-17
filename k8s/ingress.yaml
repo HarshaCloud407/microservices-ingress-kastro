@@ -17,11 +17,3 @@ spec:
                 name: techsolutions-service
                 port:
                   number: 80
-:::
-
-**Important:** Do NOT copy the `:::writing` lines into your file. Copy only the YAML content.
-
-Your actual file should end at:
-
-```text
-number: 80
