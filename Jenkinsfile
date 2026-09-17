@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        DOCKER_HUB_REPO = 'hariprasad123456/techsolutions-app'
+        DOCKER_HUB_REPO = 'hariprasad123456/techsolutions-app' 
         K8S_CLUSTER_NAME = 'blujay-cluster'
         AWS_REGION = 'eu-north-1'
         NAMESPACE = 'default'
