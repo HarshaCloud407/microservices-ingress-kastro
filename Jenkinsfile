@@ -65,7 +65,7 @@ pipeline {
                 echo 'Deploying application to Kubernetes...'
                 script {
                     withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'aws-creds']]) {
-                        sh "sed -i 's|kastrov/techsolutions-app:latest|kastrov/techsolutions-app:${env.IMAGE_TAG}|g' k8s/deployment.yaml"
+                        sh "sed -i 's|hariprasad123456/techsolutions-app:latest|hariprasad123456/techsolutions-app:${env.IMAGE_TAG}|g' k8s/deployment.yaml"
                         sh "kubectl apply -f k8s/deployment.yaml"
                         sh "kubectl rollout status deployment/${APP_NAME}-deployment --timeout=300s"
                         sh "kubectl get pods -l app=${APP_NAME}"
