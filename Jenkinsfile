@@ -3,8 +3,8 @@ pipeline {
 
     environment {
         DOCKER_HUB_REPO = 'hariprasad123456/techsolutions-app' 
-        K8S_CLUSTER_NAME = 'blujay-cluster'
-        AWS_REGION = 'eu-north-1'
+        K8S_CLUSTER_NAME = 'blujay-cluster-hyd2'
+        AWS_REGION = 'us-east-1'
         NAMESPACE = 'default'
         APP_NAME = 'techsolutions' 
     }
