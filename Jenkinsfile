@@ -6,7 +6,11 @@ pipeline {
         K8S_CLUSTER_NAME = 'blujay-cluster'
         AWS_REGION = 'eu-north-1'
         NAMESPACE = 'default'
+<<<<<<< HEAD
         APP_NAME = 'techsolutions' 
+=======
+        APP_NAME = 'techsolutions'
+>>>>>>> d0d3722d477868d9618c09e74c0a0c5dd795b9b7
     }
 
     stages {
