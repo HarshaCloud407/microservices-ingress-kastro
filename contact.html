@@ -1,0 +1,815 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Learn with KASTRO | DevOps Training</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #0ea5e9;
+      --primary-dark: #0284c7;
+      --secondary: #0f172a;
+      --accent: #38bdf8;
+      --light: #f8fafc;
+      --gray: #94a3b8;
+      --dark-gray: #334155;
+      --success: #10b981;
+      --whatsapp: #25D366;
+      --whatsapp-dark: #128C7E;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #f9f9f9;
+      color: var(--secondary);
+      line-height: 1.6;
+    }
+    
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+    
+    /* Navbar */
+    .navbar {
+      background-color: var(--secondary);
+      color: var(--light);
+      padding: 15px 0;
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease;
+    }
+    
+    .navbar.scrolled {
+      padding: 10px 0;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+    }
+    
+    .nav-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .nav-logo h2 {
+      margin: 0;
+      color: var(--accent);
+      font-size: 1.8rem;
+      font-weight: 700;
+      background: linear-gradient(to right, #38bdf8, #0ea5e9);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      transition: all 0.3s ease;
+    }
+    
+    .nav-logo h2:hover {
+      transform: scale(1.05);
+    }
+    
+    .nav-menu {
+      list-style: none;
+      display: flex;
+      gap: 30px;
+    }
+    
+    .nav-item .nav-link {
+      text-decoration: none;
+      color: var(--light);
+      font-weight: 500;
+      position: relative;
+      padding: 5px 0;
+      transition: all 0.3s ease;
+    }
+    
+    .nav-item .nav-link::after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 2px;
+      bottom: 0;
+      left: 0;
+      background-color: var(--accent);
+      transition: width 0.3s ease;
+    }
+    
+    .nav-item .nav-link:hover::after {
+      width: 100%;
+    }
+    
+    .nav-link.active {
+      color: var(--accent);
+    }
+    
+    .nav-link.active::after {
+      width: 100%;
+    }
+    
+    /* Hero Section */
+    .page-header {
+      background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+      color: white;
+      padding: 120px 20px 60px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      margin-top: 60px;
+    }
+    
+    .page-header::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url('https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80') center/cover no-repeat;
+      opacity: 0.15;
+    }
+    
+    .page-header h1 {
+      font-size: 3rem;
+      margin-bottom: 20px;
+      position: relative;
+      animation: fadeInDown 1s ease;
+    }
+    
+    .page-header p {
+      font-size: 1.2rem;
+      max-width: 700px;
+      margin: 0 auto 30px;
+      position: relative;
+      animation: fadeInUp 1s ease 0.3s forwards;
+      opacity: 0;
+    }
+    
+    /* Contact Section */
+    .contact-content {
+      padding: 80px 20px;
+      position: relative;
+    }
+    
+    .contact-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 40px;
+      align-items: start;
+    }
+    
+    .contact-info {
+      position: relative;
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    
+    .contact-info:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    }
+    
+    .contact-info h2 {
+      color: var(--secondary);
+      font-size: 2rem;
+      margin-bottom: 20px;
+      position: relative;
+      padding-bottom: 10px;
+    }
+    
+    .contact-info h2::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 60px;
+      height: 3px;
+      background: linear-gradient(to right, var(--primary), var(--accent));
+      border-radius: 3px;
+    }
+    
+    .contact-info p {
+      color: var(--dark-gray);
+      margin-bottom: 30px;
+    }
+    
+    .contact-details {
+      display: flex;
+      flex-direction: column;
+      gap: 25px;
+    }
+    
+    .contact-item {
+      display: flex;
+      gap: 15px;
+    }
+    
+    .contact-icon {
+      font-size: 1.5rem;
+      color: var(--primary);
+      margin-top: 3px;
+    }
+    
+    .contact-text h3 {
+      margin-bottom: 5px;
+      color: var(--primary);
+      font-size: 1.1rem;
+    }
+    
+    .contact-text p {
+      color: var(--dark-gray);
+      margin: 0;
+    }
+    
+    /* Action Cards */
+    .action-card {
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .action-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    }
+    
+    .action-card.register {
+      border-top: 4px solid var(--primary);
+    }
+    
+    .action-card.demo {
+      border-top: 4px solid var(--success);
+    }
+    
+    .action-card.whatsapp {
+      border-top: 4px solid var(--whatsapp);
+    }
+    
+    .action-card h3 {
+      font-size: 1.3rem;
+      margin-bottom: 15px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    .action-card.register h3 {
+      color: var(--primary);
+    }
+    
+    .action-card.demo h3 {
+      color: var(--success);
+    }
+    
+    .action-card.whatsapp h3 {
+      color: var(--whatsapp);
+    }
+    
+    .action-card p {
+      color: var(--dark-gray);
+      margin-bottom: 20px;
+    }
+    
+    /* Buttons */
+    .btn {
+      display: inline-block;
+      padding: 12px 25px;
+      border-radius: 5px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      text-align: center;
+      border: none;
+      cursor: pointer;
+      font-size: 1rem;
+    }
+    
+    .btn-primary {
+      background-color: var(--primary);
+      color: white;
+    }
+    
+    .btn-primary:hover {
+      background-color: var(--primary-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(14, 165, 233, 0.3);
+    }
+    
+    .btn-success {
+      background-color: var(--success);
+      color: white;
+    }
+    
+    .btn-success:hover {
+      background-color: #0d9e6f;
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(16, 185, 129, 0.3);
+    }
+    
+    .btn-whatsapp {
+      background-color: var(--whatsapp);
+      color: white;
+    }
+    
+    .btn-whatsapp:hover {
+      background-color: var(--whatsapp-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(37, 211, 102, 0.3);
+    }
+    
+    .btn-block {
+      display: block;
+      width: 100%;
+    }
+    
+    /* Testimonials */
+    .testimonials-section {
+      background-color: #f1f5f9;
+      padding: 80px 20px;
+      position: relative;
+    }
+    
+    .section-header {
+      text-align: center;
+      margin-bottom: 50px;
+    }
+    
+    .section-header h2 {
+      font-size: 2.5rem;
+      color: var(--secondary);
+      margin-bottom: 15px;
+      position: relative;
+      display: inline-block;
+    }
+    
+    .section-header h2::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 3px;
+      background: linear-gradient(to right, var(--primary), var(--accent));
+      border-radius: 3px;
+    }
+    
+    .section-header p {
+      color: var(--dark-gray);
+      max-width: 700px;
+      margin: 0 auto;
+      font-size: 1.1rem;
+    }
+    
+    .testimonials-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+      gap: 30px;
+    }
+    
+    .testimonial {
+      background: white;
+      border-radius: 10px;
+      padding: 30px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .testimonial:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+    }
+    
+    .testimonial::before {
+      content: '"';
+      position: absolute;
+      top: 10px;
+      left: 20px;
+      font-size: 80px;
+      color: rgba(14, 165, 233, 0.1);
+      font-family: serif;
+      line-height: 1;
+    }
+    
+    .testimonial p {
+      font-style: italic;
+      color: var(--dark-gray);
+      line-height: 1.8;
+      position: relative;
+      z-index: 1;
+      margin-bottom: 20px;
+    }
+    
+    .testimonial-name {
+      font-weight: 600;
+      color: var(--secondary);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    .testimonial-name::before {
+      content: '';
+      display: inline-block;
+      width: 30px;
+      height: 2px;
+      background-color: var(--primary);
+    }
+    
+    .rating {
+      color: #f59e0b;
+      margin-top: 10px;
+      font-size: 0.9rem;
+    }
+    
+    /* Footer */
+    .footer {
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+      color: white;
+      padding: 50px 0 20px;
+      text-align: center;
+    }
+    
+    .footer-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 30px;
+    }
+    
+    .footer-logo {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--accent);
+      margin-bottom: 10px;
+    }
+    
+    .footer-links {
+      display: flex;
+      gap: 20px;
+      margin-bottom: 20px;
+    }
+    
+    .footer-link {
+      color: var(--light);
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+    
+    .footer-link:hover {
+      color: var(--accent);
+    }
+    
+    .social-links {
+      display: flex;
+      gap: 20px;
+      margin-bottom: 30px;
+    }
+    
+    .social-link {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background-color: rgba(255, 255, 255, 0.1);
+      color: white;
+      transition: all 0.3s ease;
+    }
+    
+    .social-link:hover {
+      background-color: var(--accent);
+      transform: translateY(-3px);
+    }
+    
+    .copyright {
+      color: var(--gray);
+      font-size: 0.9rem;
+      padding-top: 20px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      width: 100%;
+    }
+    
+    /* Animations */
+    @keyframes fadeInDown {
+      from {
+        opacity: 0;
+        transform: translateY(-30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    @keyframes pulse {
+      0% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.05);
+      }
+      100% {
+        transform: scale(1);
+      }
+    }
+    
+    .pulse {
+      animation: pulse 2s infinite;
+    }
+    
+    /* Responsive */
+    @media (max-width: 768px) {
+      .nav-container {
+        flex-direction: column;
+        gap: 15px;
+      }
+      
+      .nav-menu {
+        gap: 15px;
+      }
+      
+      .page-header h1 {
+        font-size: 2.2rem;
+      }
+      
+      .page-header p {
+        font-size: 1rem;
+      }
+      
+      .section-header h2 {
+        font-size: 2rem;
+      }
+      
+      .testimonials-container {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="container nav-container">
+      <div class="nav-logo">
+        <h2>Learn with KASTRO</h2>
+      </div>
+      <ul class="nav-menu">
+        <li class="nav-item"><a href="/" class="nav-link">Home</a></li>
+        <li class="nav-item"><a href="/about" class="nav-link">About</a></li>
+        <li class="nav-item"><a href="/services" class="nav-link">Modules</a></li>
+        <li class="nav-item"><a href="/contact" class="nav-link active">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="page-header">
+    <div class="container">
+      <h1>Transform Your DevOps Career</h1>
+      <p>Get in touch with us to learn how our comprehensive Jenkins, Docker, Kubernetes, and Terraform training can accelerate your professional growth</p>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section class="contact-content">
+    <div class="container">
+      <div class="contact-grid">
+        <div class="contact-info">
+          <h2>Connect With Us</h2>
+          <p>Our team is ready to help you start your DevOps journey with our industry-leading training programs.</p>
+          
+          <div class="contact-details">
+            <div class="contact-item">
+              <div class="contact-icon">
+                <i class="fas fa-envelope"></i>
+              </div>
+              <div class="contact-text">
+                <h3>Email Address</h3>
+                <p>learnwithkastro@gmail.com</p>
+              </div>
+            </div>
+            
+            <div class="contact-item">
+              <div class="contact-icon">
+                <i class="fas fa-phone-alt"></i>
+              </div>
+              <div class="contact-text">
+                <h3>Phone Number</h3>
+                <p>+91 9700712459</p>
+              </div>
+            </div>
+            
+            <div class="contact-item">
+              <div class="contact-icon">
+                <i class="fas fa-globe"></i>
+              </div>
+              <div class="contact-text">
+                <h3>Remote Training</h3>
+                <p>World-class DevOps training delivered remotely to your location</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="action-cards">
+          <div class="action-card register">
+            <h3><i class="fas fa-user-graduate"></i> Enroll Now</h3>
+            <p>Secure your spot in our next Jenkins, Docker & Kubernetes training batch. Limited seats available!</p>
+            <a href="https://forms.gle/Xm88dhmdmxuWzJ4Q8" class="btn btn-primary btn-block" target="_blank">
+              Register Now <i class="fas fa-arrow-right"></i>
+            </a>
+          </div>
+          
+          <div class="action-card demo">
+            <h3><i class="fas fa-calendar-check"></i> Free Demo Sessions</h3>
+            <p>Experience our training firsthand on August 7th & 8th, 2025. No commitment required!</p>
+            <a href="https://forms.gle/Xm88dhmdmxuWzJ4Q8" class="btn btn-success btn-block" target="_blank">
+              Reserve Your Spot <i class="fas fa-arrow-right"></i>
+            </a>
+          </div>
+          
+          <div class="action-card whatsapp">
+            <h3><i class="fab fa-whatsapp"></i> Join Our Community</h3>
+            <p>Connect with fellow learners and get training updates in our WhatsApp group</p>
+            <a href="https://chat.whatsapp.com/KHytOyn3azy3c7LvYhvYmE" class="btn btn-whatsapp btn-block pulse" target="_blank">
+              Join WhatsApp Group <i class="fas fa-arrow-right"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials -->
+  <section class="testimonials-section">
+    <div class="container">
+      <div class="section-header">
+        <h2>Success Stories</h2>
+        <p>Hear from the students of JDK Batch 05 (completed on June 29, 2025)</p>
+      </div>
+      
+      <div class="testimonials-container">
+        <div class="testimonial">
+          <p>Previously I joined another institute where the trainer wasn't good and skipped concepts. When I joined this batch, I learned everything properly. Now I'm very confident about DevOps tools. Overall excellent experience!</p>
+          <div class="testimonial-name">Karuneshwar</div>
+          <div class="rating">
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+          </div>
+        </div>
+        
+        <div class="testimonial">
+          <p>The training was well-structured, hands-on, and extended beyond a month to ensure clarity. We received in-depth PDFs, Q&A sets, job openings, and mock interviews. Highly practical and career-focused.</p>
+          <div class="testimonial-name">Ayush Vinod</div>
+          <div class="rating">
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+          </div>
+        </div>
+        
+        <div class="testimonial">
+          <p>Kiran Sir's classes were incredibly clear and easy to follow, even without technical background. He explains complex DevOps tools in simple English. I've attended many trainings, but none matched this depth and clarity.</p>
+          <div class="testimonial-name">Jegadeeshbabu</div>
+          <div class="rating">
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star-half-alt"></i>
+          </div>
+        </div>
+        
+        <div class="testimonial">
+          <p>The Kubernetes labs gave me confidence to handle real-world issues. The hands-on approach with real-world scenarios made all the difference. I highly recommend this training!</p>
+          <div class="testimonial-name">Neha Sharma</div>
+          <div class="rating">
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+          </div>
+        </div>
+        
+        <div class="testimonial">
+          <p>One of the best DevOps trainings I've attended! Kastro Sir didn't just teach tools; he taught how to think like a DevOps engineer. The detailed coverage helped me understand the entire CI/CD ecosystem.</p>
+          <div class="testimonial-name">Sneha Thomas</div>
+          <div class="rating">
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+          </div>
+        </div>
+        
+        <div class="testimonial">
+          <p>The Terraform and Ansible sessions were added upon our request. His explanation of modules, provisioning, and playbooks was crystal clear. These additional topics boosted my confidence as a DevOps engineer.</p>
+          <div class="testimonial-name">Rajesh</div>
+          <div class="rating">
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-logo">Learn with KASTRO</div>
+        
+        <div class="footer-links">
+          <a href="/" class="footer-link">Home</a>
+          <a href="/about" class="footer-link">About</a>
+          <a href="/services" class="footer-link">Services</a>
+          <a href="/contact" class="footer-link">Contact</a>
+        </div>
+        
+        <div class="social-links">
+          <a href="https://chat.whatsapp.com/KHytOyn3azy3c7LvYhvYmE" class="social-link" target="_blank"><i class="fab fa-whatsapp"></i></a>
+        </div>
+        
+        <div class="copyright">
+          &copy; 2025 Learn With KASTRO. All rights reserved.
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Navbar scroll effect
+    window.addEventListener('scroll', function() {
+      const navbar = document.querySelector('.navbar');
+      if (window.scrollY > 50) {
+        navbar.classList.add('scrolled');
+      } else {
+        navbar.classList.remove('scrolled');
+      }
+    });
+    
+    // Animation on scroll
+    document.addEventListener('DOMContentLoaded', function() {
+      const testimonials = document.querySelectorAll('.testimonial');
+      
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.style.opacity = 1;
+            entry.target.style.transform = 'translateY(0)';
+          }
+        });
+      }, { threshold: 0.1 });
+      
+      testimonials.forEach(testimonial => {
+        testimonial.style.opacity = 0;
+        testimonial.style.transform = 'translateY(20px)';
+        testimonial.style.transition = 'all 0.6s ease';
+        observer.observe(testimonial);
+      });
+    });
+  </script>
+</body>
+</html>
